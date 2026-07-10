@@ -1,0 +1,170 @@
+const express = require('express');
+const router = express.Router();
+
+// Get menu by restaurant
+router.get('/:restaurantId', (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Menu retrieved',
+    restaurant_id: req.params.restaurantId,
+    menu: {
+      categories: [
+        { 
+          id: 'cat_1', 
+          name: 'Biryani', 
+          icon: '🍛',
+          item_count: 5
+        },
+        { 
+          id: 'cat_2', 
+          name: 'Curries', 
+          icon: '🍛',
+          item_count: 8
+        },
+        { 
+          id: 'cat_3', 
+          name: 'Bread', 
+          icon: '🥘',
+          item_count: 6
+        },
+        { 
+          id: 'cat_4', 
+          name: 'Beverages', 
+          icon: '☕',
+          item_count: 4
+        }
+      ],
+      items: [
+        {
+          id: 'item_1',
+          name: 'Chicken Biryani',
+          description: 'Fragrant basmati rice cooked with tender chicken pieces and aromatic spices',
+          price: 299,
+          category_id: 'cat_1',
+          is_veg: false,
+          is_available: true,
+          image_url: 'https://example.com/biryani.jpg',
+          rating: 4.6,
+          review_count: 143,
+          is_popular: true,
+          preparation_time: 20
+        },
+        {
+          id: 'item_2',
+          name: 'Mutton Biryani',
+          description: 'Premium mutton biryani with tender meat and fragrant rice',
+          price: 349,
+          category_id: 'cat_1',
+          is_veg: false,
+          is_available: true,
+          image_url: 'https://example.com/mutton.jpg',
+          rating: 4.7,
+          review_count: 98,
+          is_popular: true,
+          preparation_time: 25
+        },
+        {
+          id: 'item_3',
+          name: 'Paneer Biryani',
+          description: 'Fragrant biryani with cottage cheese and vegetables',
+          price: 249,
+          category_id: 'cat_1',
+          is_veg: true,
+          is_available: true,
+          image_url: 'https://example.com/paneer.jpg',
+          rating: 4.4,
+          review_count: 76,
+          is_popular: false,
+          preparation_time: 20
+        },
+        {
+          id: 'item_4',
+          name: 'Butter Chicken',
+          description: 'Tender chicken in creamy tomato-based butter sauce',
+          price: 279,
+          category_id: 'cat_2',
+          is_veg: false,
+          is_available: true,
+          image_url: 'https://example.com/butter.jpg',
+          rating: 4.5,
+          review_count: 156,
+          is_popular: true,
+          preparation_time: 18
+        },
+        {
+          id: 'item_5',
+          name: 'Naan',
+          description: 'Soft and fluffy Indian bread baked in tandoor',
+          price: 49,
+          category_id: 'cat_3',
+          is_veg: true,
+          is_available: true,
+          image_url: 'https://example.com/naan.jpg',
+          rating: 4.3,
+          review_count: 234,
+          is_popular: false,
+          preparation_time: 5
+        }
+      ]
+    }
+  });
+});
+
+// Get menu item details
+router.get('/:restaurantId/:itemId', (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Menu item details retrieved',
+    item: {
+      id: req.params.itemId,
+      name: 'Chicken Biryani',
+      description: 'Fragrant basmati rice cooked with tender chicken pieces and aromatic spices',
+      price: 299,
+      category: 'Biryani',
+      is_veg: false,
+      is_available: true,
+      image_url: 'https://example.com/biryani.jpg',
+      rating: 4.6,
+      review_count: 143,
+      is_popular: true,
+      preparation_time: 20,
+      restaurant_id: req.params.restaurantId,
+      customizations: [
+        {
+          id: 'custom_1',
+          name: 'Spice Level',
+          type: 'radio',
+          options: ['Mild', 'Medium', 'Spicy', 'Very Spicy']
+        },
+        {
+          id: 'custom_2',
+          name: 'Add Ons',
+          type: 'checkbox',
+          options: ['Raita (+₹20)', 'Pickle (+₹10)', 'Papad (+₹10)']
+        }
+      ]
+    }
+  });
+});
+
+// Search menu items
+router.get('/search/:restaurantId', (req, res) => {
+  const { q } = req.query;
+  
+  res.status(200).json({ 
+    success: true,
+    message: 'Search results',
+    restaurant_id: req.params.restaurantId,
+    query: q,
+    results: [
+      {
+        id: 'item_1',
+        name: 'Chicken Biryani',
+        price: 299,
+        category: 'Biryani'
+      }
+    ]
+  });
+});
+
+module.exports = router;
