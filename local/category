@@ -1,0 +1,95 @@
+const express = require('express');
+const router = express.Router();
+
+// Get all categories
+router.get('/', (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Categories retrieved',
+    categories: [
+      { 
+        id: 'cat_1', 
+        name: 'Breakfast', 
+        icon: '🥐',
+        color_code: '#FF6B6B'
+      },
+      { 
+        id: 'cat_2', 
+        name: 'Lunch', 
+        icon: '🍱',
+        color_code: '#4ECDC4'
+      },
+      { 
+        id: 'cat_3', 
+        name: 'Dinner', 
+        icon: '🍽️',
+        color_code: '#45B7D1'
+      },
+      { 
+        id: 'cat_4', 
+        name: 'Biryani', 
+        icon: '🍛',
+        color_code: '#FFA07A'
+      },
+      { 
+        id: 'cat_5', 
+        name: 'Pizza', 
+        icon: '🍕',
+        color_code: '#FFD93D'
+      },
+      { 
+        id: 'cat_6', 
+        name: 'Burgers', 
+        icon: '🍔',
+        color_code: '#A8E6CF'
+      },
+      { 
+        id: 'cat_7', 
+        name: 'South Indian', 
+        icon: '🥘',
+        color_code: '#FF8B94'
+      },
+      { 
+        id: 'cat_8', 
+        name: 'Chinese', 
+        icon: '🥢',
+        color_code: '#C7CEEA'
+      },
+      { 
+        id: 'cat_9', 
+        name: 'Healthy Food', 
+        icon: '🥗',
+        color_code: '#B5EAD7'
+      },
+      { 
+        id: 'cat_10', 
+        name: 'Desserts', 
+        icon: '🍰',
+        color_code: '#FF9FB2'
+      },
+      { 
+        id: 'cat_11', 
+        name: 'Tea & Coffee', 
+        icon: '☕',
+        color_code: '#D4A5A5'
+      }
+    ]
+  });
+});
+
+// Get category by ID
+router.get('/:id', (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Category retrieved',
+    category: {
+      id: req.params.id,
+      name: 'Biryani',
+      icon: '🍛',
+      color_code: '#FFA07A',
+      description: 'Fragrant rice dishes with aromatic spices'
+    }
+  });
+});
+
+module.exports = router;
