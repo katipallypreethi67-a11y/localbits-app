@@ -1,0 +1,129 @@
+const express = require('express');
+const router = express.Router();
+const { authMiddleware } = require('../middleware/auth.middleware');
+
+// Create order
+router.post('/', authMiddleware, (req, res) => {
+  res.status(201).json({ 
+    success: true,
+    message: 'Order created successfully',
+    order: {
+      id: 'order_' + Date.now(),
+      order_number: 'ORD-001234',
+      restaurant_id: req.body.restaurant_id,
+      customer_id: req.user.id,
+      status: 'pending',
+      items: req.body.items || [],
+      subtotal: req.body.subtotal || 0,
+      delivery_fee: req.body.delivery_fee || 40,
+      discount_amount: req.body.discount_amount || 0,
+      tax_amount: req.body.tax_amount || 0,
+      total_amount: req.body.total_amount || 0,
+      payment_method: req.body.payment_method || 'card',
+      delivery_address_id: req.body.delivery_address_id,
+      estimated_delivery_time: new Date(Date.now() + 30 * 60000),
+      created_at: new Date()
+    }
+  });
+});
+
+// Get user orders
+router.get('/', authMiddleware, (req, res) => {
+  const { status, page = 1, limit = 10 } = req.query;
+  
+  res.status(200).json({ 
+    success: true,
+    message: 'User orders retrieved',
+    orders: [
+      {
+        id: 'order_1',
+        order_number: 'ORD-001234',
+        restaurant_name: 'The Biryani House',
+        status: 'delivered',
+        total_amount: 599,
+        created_at: '2024-01-10T10:30:00Z'
+      },
+      {
+        id: 'order_2',
+        order_number: 'ORD-001235',
+        restaurant_name: 'Pizza Corner',
+        status: 'delivered',
+        total_amount: 799,
+        created_at: '2024-01-09T18:45:00Z'
+      }
+    ],
+    page: parseInt(page),
+    limit: parseInt(limit),
+    total: 25
+  });
+});
+
+// Get order details
+router.get('/:id', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Order details retrieved',
+    order: {
+      id: req.params.id,
+      order_number: 'ORD-001234',
+      restaurant_id: 'rest_1',
+      restaurant_name: 'The Biryani House',
+      customer_id: req.user.id,
+      status: 'on_the_way',
+      items: [
+        { name: 'Chicken Biryani', quantity: 2, price: 299 },
+        { name: 'Raita', quantity: 1, price: 49 }
+      ],
+      subtotal: 647,
+      delivery_fee: 40,
+      discount_amount: 0,
+      tax_amount: 58,
+      total_amount: 745,
+      payment_method: 'card',
+      payment_status: 'completed',
+      delivery_partner: {
+        name: 'Raj Kumar',
+        phone: '+91 9876543210',
+        vehicle: 'Bike - TS 07 AB 1234',
+        rating: 4.8
+      },
+      estimated_delivery_time: '2024-01-10T11:15:00Z',
+      created_at: '2024-01-10T10:30:00Z'
+    }
+  });
+});
+
+// Cancel order
+router.post('/:id/cancel', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Order cancelled successfully',
+    order_id: req.params.id,
+    refund_amount: 745
+  });
+});
+
+// Track order
+router.get('/:id/track', (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Order tracking information',
+    tracking: {
+      order_id: req.params.id,
+      status: 'on_the_way',
+      estimated_time: '15 mins',
+      current_location: {
+        latitude: 17.3850,
+        longitude: 78.4867
+      },
+      delivery_partner: {
+        name: 'Raj Kumar',
+        latitude: 17.3800,
+        longitude: 78.4850,
+        distance_from_location: '2.3 km'
+      }
+    }
+  });
+});
+
+module.exports = router;
