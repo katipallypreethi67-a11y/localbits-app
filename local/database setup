@@ -1,0 +1,29 @@
+# 1. Connect to PostgreSQL
+psql -U postgres
+
+# You'll see: postgres=#
+
+# 2. Create the user
+CREATE USER localbites_user WITH PASSWORD 'secure_password_change_me';
+
+# 3. Create the database
+CREATE DATABASE localbites OWNER localbites_user;
+
+# 4. Connect to the database
+\c localbites
+
+# You'll see: localbites=#
+
+# 5. Run the initialization script
+\i database/init.sql
+
+# Wait for it to complete...
+# You should see: CREATE TABLE, CREATE INDEX messages
+
+# 6. Verify tables were created
+\dt
+
+# You should see tables like: users, restaurants, orders, etc.
+
+# 7. Exit PostgreSQL
+\q
