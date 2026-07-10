@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+
+class UserProvider extends ChangeNotifier {
+  String? _userId;
+  String? _email;
+  String? _phone;
+  String? _firstName;
+  String? _lastName;
+  String? _token;
+  bool _isLoading = false;
+  String? _error;
+  bool _isLoggedIn = false;
+
+  // Getters
+  String? get userId => _userId;
+  String? get email => _email;
+  String? get phone => _phone;
+  String? get firstName => _firstName;
+  String? get lastName => _lastName;
+  String? get token => _token;
+  bool get isLoading => _isLoading;
+  String? get error => _error;
+  bool get isLoggedIn => _isLoggedIn;
+
+  // Login
+  Future<void> login(String email, String password) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      // Simulating API call
+      await Future.delayed(const Duration(seconds: 2));
+      
+      _email = email;
+      _token = 'sample_jwt_token_$email';
+      _isLoggedIn = true;
+      _isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      _error = e.toString();
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // Register
+  Future<void> register({
+    required String email,
+    required String phone,
+    required String password,
+    required String firstName,
+    required String lastName,
+  }) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      // Simulating API call
+      await Future.delayed(const Duration(seconds: 2));
+      
+      _email = email;
+      _phone = phone;
+      _firstName = firstName;
+      _lastName = lastName;
+      _token = 'sample_jwt_token_$email';
+      _isLoggedIn = true;
+      _isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      _error = e.toString();
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // Logout
+  Future<void> logout() async {
+    _userId = null;
+    _email = null;
+    _phone = null;
+    _firstName = null;
+    _lastName = null;
+    _token = null;
+    _isLoggedIn = false;
+    notifyListeners();
+  }
+
+  // Update Profile
+  Future<void> updateProfile({
+    String? firstName,
+    String? lastName,
+    String? phone,
+  }) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      await Future.delayed(const Duration(seconds: 1));
+      
+      if (firstName != null) _firstName = firstName;
+      if (lastName != null) _lastName = lastName;
+      if (phone != null) _phone = phone;
+      
+      _isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      _error = e.toString();
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+}
