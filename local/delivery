@@ -1,0 +1,126 @@
+const express = require('express');
+const router = express.Router();
+const { authMiddleware } = require('../middleware/auth.middleware');
+
+// Get available orders for delivery partner
+router.get('/available', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Available delivery orders retrieved',
+    delivery_partner_id: req.user.id,
+    orders: [
+      {
+        id: 'order_1',
+        order_number: 'ORD-001234',
+        restaurant_name: 'The Biryani House',
+        restaurant_location: {
+          latitude: 17.3850,
+          longitude: 78.4867,
+          address: '123 Street, Hyderabad'
+        },
+        delivery_location: {
+          latitude: 17.3900,
+          longitude: 78.4900,
+          address: '456 Avenue, Hyderabad'
+        },
+        distance: 2.5,
+        estimated_time: 15,
+        delivery_fee: 40,
+        items_count: 3,
+        customer_phone: '+91 9876543210',
+        order_value: 745
+      },
+      {
+        id: 'order_2',
+        order_number: 'ORD-001235',
+        restaurant_name: 'Pizza Corner',
+        restaurant_location: {
+          latitude: 17.3700,
+          longitude: 78.4750,
+          address: '789 Road, Hyderabad'
+        },
+        delivery_location: {
+          latitude: 17.3800,
+          longitude: 78.4800,
+          address: '321 Lane, Hyderabad'
+        },
+        distance: 3.2,
+        estimated_time: 18,
+        delivery_fee: 50,
+        items_count: 2,
+        customer_phone: '+91 9876543211',
+        order_value: 899
+      }
+    ],
+    total_orders: 2
+  });
+});
+
+// Accept order
+router.post('/:orderId/accept', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Order accepted successfully',
+    order_id: req.params.orderId,
+    accepted_at: new Date(),
+    delivery_partner_id: req.user.id
+  });
+});
+
+// Reject order
+router.post('/:orderId/reject', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Order rejected',
+    order_id: req.params.orderId,
+    reason: req.body.reason || 'Not available'
+  });
+});
+
+// Update delivery status
+router.patch('/:orderId/status', authMiddleware, (req, res) => {
+  const { status } = req.body;
+  
+  res.status(200).json({ 
+    success: true,
+    message: 'Delivery status updated',
+    order_id: req.params.orderId,
+    status: status,
+    updated_at: new Date()
+  });
+});
+
+// Update location
+router.patch('/:orderId/location', authMiddleware, (req, res) => {
+  const { latitude, longitude } = req.body;
+  
+  res.status(200).json({ 
+    success: true,
+    message: 'Location updated',
+    order_id: req.params.orderId,
+    location: {
+      latitude,
+      longitude
+    },
+    updated_at: new Date()
+  });
+});
+
+// Get delivery earnings
+router.get('/earnings/summary', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Delivery earnings summary',
+    delivery_partner_id: req.user.id,
+    earnings: {
+      today: 450,
+      this_week: 2150,
+      this_month: 8900,
+      total: 45600,
+      total_deliveries: 456,
+      rating: 4.8
+    }
+  });
+});
+
+module.exports = router;
