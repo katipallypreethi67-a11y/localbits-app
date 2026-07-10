@@ -1,33 +1,29 @@
-# LocalBites - Community-Driven Food Marketplace
+# LocalBites - Premium Local Food Marketplace
 
-A premium, elegant, and accessibility-first food delivery platform designed for simplicity, speed, and community connection.
+## Vision
+LocalBites is a next-generation local food marketplace designed with simplicity, speed, and beauty at its core. Unlike existing food delivery apps, LocalBites prioritizes user experience, community focus, and trust.
 
-## 🍽 Vision
+## Core Features
+- Extremely simple and intuitive UI
+- Fast, minimal interface
+- Beautiful food imagery
+- Warm, community-focused design
+- Accessible for all age groups
+- AI-powered recommendations
 
-LocalBites reimagines food delivery by prioritizing:
-- **Simplicity**: Clean UI with minimal clicks
-- **Speed**: 2-second page loads
-- **Accessibility**: Support for all user groups
-- **Community**: Local, warm, and friendly
-- **Fairness**: Transparent pricing, no forced discounts
-
-## 🏗️ Tech Stack
+## Tech Stack
 
 ### Frontend
-- **Flutter** - Cross-platform mobile app
-- **React** - Web dashboard & admin panel
+- Flutter (Mobile)
+- React (Web)
 
 ### Backend
-- **Node.js + Express.js** - RESTful API
-- **PostgreSQL** - Primary database
-- **Redis** - Caching
-- **Firebase** - Authentication
+- Node.js with Express.js
+- PostgreSQL (Database)
+- Firebase (Auth, Notifications, Cloud Messaging)
+- AWS S3 (Image Storage)
+- Google Maps API
+- Razorpay (Payments)
 
-## 🚀 Quick Start
-
-```bash
-cd backend
-npm install
-cp .env.example .env
-npm run migrate
+## Project Structure
 npm start
