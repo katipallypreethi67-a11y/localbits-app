@@ -1,0 +1,71 @@
+
+---
+
+## **STEP 3: docker-compose.yml**
+
+**File Path:** `docker-compose.yml`
+
+**Code:**
+```yaml
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: localbites-db
+    environment:
+      POSTGRES_USER: localbites_user
+      POSTGRES_PASSWORD: secure_password_change_me
+      POSTGRES_DB: localbites
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - localbites-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U localbites_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: localbites-backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://localbites_user:secure_password_change_me@postgres:5432/localbites
+      PORT: 3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - localbites-network
+    command: npm run dev
+
+  redis:
+    image: redis:7-alpine
+    container_name: localbites-cache
+    ports:
+      - "6379:6379"
+    networks:
+      - localbites-network
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  localbites-network:
+    driver: bridge
