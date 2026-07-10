@@ -1,0 +1,10 @@
+# 🚀 LocalBites Quick Setup Instructions
+
+## Prerequisites Installation
+
+### 1. Install Node.js (v18+)
+- **Windows/Mac**: Download from https://nodejs.org/
+- **Linux**: 
+```bash
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
