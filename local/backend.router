@@ -1,0 +1,84 @@
+const express = require('express');
+const router = express.Router();
+const { authMiddleware } = require('../middleware/auth.middleware');
+
+// Get user profile
+router.get('/profile', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'User profile retrieved',
+    user: {
+      id: req.user.id,
+      email: req.user.email,
+      first_name: 'John',
+      last_name: 'Doe',
+      phone: '+91 9876543210',
+      profile_image_url: null
+    }
+  });
+});
+
+// Update profile
+router.put('/profile', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Profile updated successfully',
+    user: {
+      ...req.user,
+      ...req.body
+    }
+  });
+});
+
+// Get addresses
+router.get('/addresses', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'User addresses retrieved',
+    addresses: [
+      {
+        id: 'addr_1',
+        address_line_1: '123 Main Street',
+        city: 'Hyderabad',
+        state: 'Telangana',
+        postal_code: '500001',
+        is_default: true,
+        address_type: 'home'
+      }
+    ]
+  });
+});
+
+// Add address
+router.post('/addresses', authMiddleware, (req, res) => {
+  res.status(201).json({ 
+    success: true,
+    message: 'Address added successfully',
+    address: {
+      id: 'addr_new',
+      ...req.body
+    }
+  });
+});
+
+// Update address
+router.put('/addresses/:id', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Address updated successfully',
+    address: {
+      id: req.params.id,
+      ...req.body
+    }
+  });
+});
+
+// Delete address
+router.delete('/addresses/:id', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Address deleted successfully'
+  });
+});
+
+module.exports = router;
