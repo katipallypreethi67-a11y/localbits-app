@@ -1,0 +1,43 @@
+# Server Configuration (Leave as default)
+NODE_ENV=development
+PORT=3000
+API_URL=http://localhost:3000
+
+# Database Configuration (Keep these for local development)
+DATABASE_URL=postgresql://localbites_user:secure_password_change_me@localhost:5432/localbites
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=localbites_user
+DB_PASSWORD=secure_password_change_me
+DB_NAME=localbites
+
+# JWT Configuration (Generate a strong secret)
+JWT_SECRET=your_super_secret_jwt_key_change_this_in_production
+JWT_EXPIRE=7d
+
+# Firebase Configuration (Optional - Add your Firebase credentials)
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_PRIVATE_KEY=your-private-key
+FIREBASE_CLIENT_EMAIL=your-client-email
+
+# AWS S3 Configuration (Optional - Add your AWS credentials)
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+AWS_REGION=ap-south-1
+AWS_S3_BUCKET=localbites-images
+
+# Razorpay Configuration (Optional - Add your Razorpay credentials)
+RAZORPAY_KEY_ID=your-razorpay-key
+RAZORPAY_KEY_SECRET=your-razorpay-secret
+
+# Google Maps API Key (Optional)
+GOOGLE_MAPS_API_KEY=your-google-maps-key
+
+# Redis Configuration (Keep as default)
+REDIS_URL=redis://localhost:6379
+
+# Email Configuration (Optional)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASS=your-app-password
