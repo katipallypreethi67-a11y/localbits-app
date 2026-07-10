@@ -1,0 +1,120 @@
+const express = require('express');
+const router = express.Router();
+const { optionalAuth } = require('../middleware/auth.middleware');
+
+// Get all restaurants with filters
+router.get('/', optionalAuth, (req, res) => {
+  const { city, category, lat, lng, distance = 5, page = 1, limit = 20 } = req.query;
+  
+  res.status(200).json({ 
+    success: true,
+    message: 'Restaurants retrieved',
+    filters: { city, category, lat, lng, distance, page, limit },
+    restaurants: [
+      {
+        id: 'rest_1',
+        name: 'The Biryani House',
+        cuisine_type: 'Biryani',
+        rating: 4.5,
+        review_count: 234,
+        delivery_time_min: 20,
+        delivery_time_max: 30,
+        delivery_fee: 40,
+        distance: 2.5
+      },
+      {
+        id: 'rest_2',
+        name: 'Pizza Corner',
+        cuisine_type: 'Italian',
+        rating: 4.3,
+        review_count: 156,
+        delivery_time_min: 25,
+        delivery_time_max: 35,
+        delivery_fee: 50,
+        distance: 3.2
+      }
+    ],
+    total: 245,
+    page: parseInt(page),
+    limit: parseInt(limit)
+  });
+});
+
+// Get restaurant by ID
+router.get('/:id', (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Restaurant details retrieved',
+    restaurant: {
+      id: req.params.id,
+      name: 'The Biryani House',
+      description: 'Authentic Hyderabadi biryani and traditional cuisine',
+      cuisine_type: 'Biryani',
+      rating: 4.5,
+      review_count: 234,
+      delivery_time_min: 20,
+      delivery_time_max: 30,
+      delivery_fee: 40,
+      min_order_value: 200,
+      is_open: true,
+      opening_time: '11:00',
+      closing_time: '23:00',
+      address: '123 Street, Hyderabad',
+      phone: '+91 9876543210',
+      cover_image_url: 'https://example.com/image.jpg',
+      logo_url: 'https://example.com/logo.jpg'
+    }
+  });
+});
+
+// Get restaurant menu
+router.get('/:id/menu', (req, res) => {
+  res.status(200).json({ 
+    success: true,
+    message: 'Restaurant menu retrieved',
+    restaurant_id: req.params.id,
+    menu: {
+      categories: [
+        { id: 'cat_1', name: 'Biryani', icon: '🍛' },
+        { id: 'cat_2', name: 'Curries', icon: '🍛' },
+        { id: 'cat_3', name: 'Bread', icon: '🥘' }
+      ],
+      items: [
+        {
+          id: 'item_1',
+          name: 'Chicken Biryani',
+          description: 'Fragrant rice with tender chicken',
+          price: 299,
+          category_id: 'cat_1',
+          is_veg: false,
+          is_available: true,
+          image_url: 'https://example.com/biryani.jpg'
+        },
+        {
+          id: 'item_2',
+          name: 'Mutton Biryani',
+          description: 'Premium mutton biryani',
+          price: 349,
+          category_id: 'cat_1',
+          is_veg: false,
+          is_available: true,
+          image_url: 'https://example.com/mutton.jpg'
+        }
+      ]
+    }
+  });
+});
+
+// Search restaurants
+router.get('/search/query', (req, res) => {
+  const { q } = req.query;
+  
+  res.status(200).json({ 
+    success: true,
+    message: 'Search results',
+    query: q,
+    results: []
+  });
+});
+
+module.exports = router;
