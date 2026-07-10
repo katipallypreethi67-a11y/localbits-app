@@ -26,4 +26,3 @@ LocalBites is a next-generation local food marketplace designed with simplicity,
 - Razorpay (Payments)
 
 ## Project Structure
-npm start
