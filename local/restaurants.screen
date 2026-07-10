@@ -1,0 +1,86 @@
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { ArrowLeft, MapPin, Clock, Star } from 'lucide-react';
+
+const RestaurantScreen: React.FC = () => {
+  const { id } = useParams();
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header with back button */}
+      <div className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+            <ArrowLeft size={20} />
+            <span>Back</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Restaurant Banner */}
+      <div className="bg-gray-200 h-64 flex items-center justify-center">
+        <span className="text-9xl">🍽️</span>
+      </div>
+
+      {/* Restaurant Info */}
+      <div className="max-w-7xl mx-auto px-4 -mt-24 relative z-10">
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            The Biryani House
+          </h1>
+          <p className="text-gray-600 mb-4">
+            Authentic Hyderabadi biryani and traditional cuisine
+          </p>
+
+          <div className="flex flex-wrap gap-6 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <Star size={18} className="text-yellow-400" />
+              <span>4.6 (234 reviews)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock size={18} />
+              <span>25-30 mins</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin size={18} />
+              <span>2.5 km away</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Menu Section */}
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <h2 className="text-2xl font-bold mb-6 text-gray-900">Menu</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {['Biryani', 'Curries', 'Bread', 'Beverages'].map((category, idx) => (
+              <div key={idx} className="border border-gray-200 rounded-lg p-4">
+                <h3 className="font-semibold text-lg mb-3 text-gray-900">
+                  {category}
+                </h3>
+                <div className="space-y-3">
+                  {[1, 2, 3].map((item) => (
+                    <div
+                      key={item}
+                      className="flex justify-between items-start p-2 hover:bg-gray-50 rounded cursor-pointer"
+                    >
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {category} Item {item}
+                        </p>
+                        <p className="text-sm text-gray-600">Description here</p>
+                      </div>
+                      <p className="font-semibold text-gray-900">₹299</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RestaurantScreen;rest
