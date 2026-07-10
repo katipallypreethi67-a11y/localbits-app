@@ -1,0 +1,219 @@
+import React, { useState } from 'react';
+import { Search, MapPin, Mic, ShoppingBag, User } from 'lucide-react';
+
+interface Category {
+  id: string;
+  name: string;
+  icon: string;
+}
+
+interface Restaurant {
+  id: string;
+  name: string;
+  cuisine: string;
+  rating: number;
+  deliveryTime: string;
+  distance: number;
+  minOrder: number;
+}
+
+const HomeScreen: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const categories: Category[] = [
+    { id: '1', name: 'All', icon: '🍱' },
+    { id: '2', name: 'Breakfast', icon: '🥐' },
+    { id: '3', name: 'Lunch', icon: '🍱' },
+    { id: '4', name: 'Dinner', icon: '🍽️' },
+    { id: '5', name: 'Biryani', icon: '🍛' },
+    { id: '6', name: 'Pizza', icon: '🍕' },
+    { id: '7', name: 'Burgers', icon: '🍔' },
+    { id: '8', name: 'South Indian', icon: '🥘' },
+    { id: '9', name: 'Chinese', icon: '🥢' },
+    { id: '10', name: 'Healthy', icon: '🥗' },
+    { id: '11', name: 'Desserts', icon: '🍰' },
+    { id: '12', name: 'Tea & Coffee', icon: '☕' },
+  ];
+
+  const restaurants: Restaurant[] = [
+    {
+      id: '1',
+      name: 'The Biryani House',
+      cuisine: 'North Indian • Biryani',
+      rating: 4.6,
+      deliveryTime: '25-30',
+      distance: 2.5,
+      minOrder: 200,
+    },
+    {
+      id: '2',
+      name: 'Pizza Corner',
+      cuisine: 'Italian • Fast Food',
+      rating: 4.3,
+      deliveryTime: '20-25',
+      distance: 1.8,
+      minOrder: 150,
+    },
+    {
+      id: '3',
+      name: 'South Indian Delights',
+      cuisine: 'South Indian • Dosa',
+      rating: 4.5,
+      deliveryTime: '20-25',
+      distance: 2.2,
+      minOrder: 180,
+    },
+    {
+      id: '4',
+      name: 'Burger Paradise',
+      cuisine: 'American • Burgers',
+      rating: 4.4,
+      deliveryTime: '15-20',
+      distance: 1.5,
+      minOrder: 200,
+    },
+    {
+      id: '5',
+      name: 'Chinese Wok',
+      cuisine: 'Chinese • Noodles',
+      rating: 4.2,
+      deliveryTime: '30-35',
+      distance: 3.2,
+      minOrder: 250,
+    },
+    {
+      id: '6',
+      name: 'Healthy Bites',
+      cuisine: 'Healthy • Salads',
+      rating: 4.7,
+      deliveryTime: '20-25',
+      distance: 1.2,
+      minOrder: 150,
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-3xl">🍽️</span>
+            <h1 className="text-2xl font-bold text-gray-900">LocalBites</h1>
+          </div>
+          <div className="flex items-center gap-4">
+            <button className="p-2 hover:bg-gray-100 rounded-lg transition">
+              <ShoppingBag size={24} className="text-gray-600" />
+            </button>
+            <button className="p-2 hover:bg-gray-100 rounded-lg transition">
+              <User size={24} className="text-gray-600" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 py-8">
+        {/* Hero Section */}
+        <div className="mb-12">
+          <h2 className="text-4xl font-bold mb-2 text-gray-900">
+            What would you like today?
+          </h2>
+
+          {/* Location */}
+          <div className="flex items-center gap-2 mb-6 text-gray-600">
+            <MapPin size={20} />
+            <span>Hyderabad, India</span>
+          </div>
+
+          {/* Search Bar */}
+          <div className="flex gap-3 max-w-2xl">
+            <div className="flex-1 relative">
+              <Search className="absolute left-4 top-4 text-gray-400" size={20} />
+              <input
+                type="text"
+                placeholder="Search restaurants, food..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition"
+              />
+            </div>
+            <button className="p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
+              <Mic size={20} className="text-gray-600" />
+            </button>
+          </div>
+        </div>
+
+        {/* Categories */}
+        <div className="mb-12">
+          <h3 className="text-lg font-semibold mb-4 text-gray-900">Categories</h3>
+          <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.name)}
+                className={`flex flex-col items-center gap-2 p-4 rounded-lg transition-all duration-200 ${
+                  selectedCategory === cat.name
+                    ? 'bg-blue-500 text-white shadow-lg scale-105'
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
+                }`}
+              >
+                <span className="text-2xl">{cat.icon}</span>
+                <span className="text-xs font-medium text-center">{cat.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Popular Restaurants */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-2xl font-bold text-gray-900">Popular Now</h3>
+            <button className="text-blue-500 hover:text-blue-600 font-medium">
+              See All
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {restaurants.map((restaurant) => (
+              <div
+                key={restaurant.id}
+                className="rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer bg-white border border-gray-100"
+              >
+                {/* Image */}
+                <div className="relative w-full h-48 bg-gray-200 flex items-center justify-center">
+                  <span className="text-6xl">🍽️</span>
+                  <div className="absolute top-3 right-3 bg-white px-3 py-1 rounded-full shadow-md flex items-center gap-1">
+                    <span className="text-yellow-400">⭐</span>
+                    <span className="text-sm font-semibold">{restaurant.rating}</span>
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="p-4">
+                  <h4 className="font-bold text-lg text-gray-900 mb-1">
+                    {restaurant.name}
+                  </h4>
+                  <p className="text-sm text-gray-600 mb-3">{restaurant.cuisine}</p>
+
+                  <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <span>⏱️ {restaurant.deliveryTime} min</span>
+                      <span>📍 {restaurant.distance} km</span>
+                    </div>
+                    <div className="text-green-600 font-semibold">
+                      ₹{restaurant.minOrder}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default HomeScreen;
