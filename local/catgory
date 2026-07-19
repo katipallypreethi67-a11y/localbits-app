@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class CategoryCard extends StatelessWidget {
+  final String category;
+  final String icon;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const CategoryCard({
+    Key? key,
+    required this.category,
+    required this.icon,
+    required this.isSelected,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.only(right: 12.w),
+        child: Column(
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: 70.w,
+              height: 70.w,
+              decoration: BoxDecoration(
+                color: isSelected 
+                  ? Colors.blue 
+                  : Colors.grey[100],
+                borderRadius: BorderRadius.circular(16.r),
+                boxShadow: isSelected
+                  ? [
+                      BoxShadow(
+                        color: Colors.blue.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 8,
+                      ),
+                    ]
+                  : [],
+              ),
+              child: Center(
+                child: Text(
+                  icon,
+                  style: TextStyle(fontSize: 32.sp),
+                ),
+              ),
+            ),
+            SizedBox(height: 8.h),
+            SizedBox(
+              width: 70.w,
+              child: Text(
+                category,
+                style: TextStyle(
+                  fontSize: 11.sp,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                  color: isSelected ? Colors.blue : Colors.black,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

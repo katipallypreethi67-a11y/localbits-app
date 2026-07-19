@@ -1,0 +1,2 @@
+psql -U localbites_user -d localbites -c "SELECT COUNT(*) FROM users;"
+# Should return: count = 0

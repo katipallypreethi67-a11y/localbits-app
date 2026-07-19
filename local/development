@@ -1,0 +1,49 @@
+# Server Configuration
+NODE_ENV=development
+PORT=3000
+API_URL=http://localhost:3000
+
+# Database Configuration
+DATABASE_URL=postgresql://localbites_user:secure_password_change_me@localhost:5432/localbites
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=localbites_user
+DB_PASSWORD=secure_password_change_me
+DB_NAME=localbites
+
+# JWT Configuration
+JWT_SECRET=your_super_secret_jwt_key_change_this_in_production
+JWT_EXPIRE=7d
+
+# Firebase Configuration
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_PRIVATE_KEY=your-private-key
+FIREBASE_CLIENT_EMAIL=your-client-email@firebase.gserviceaccount.com
+
+# AWS S3 Configuration
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+AWS_REGION=ap-south-1
+AWS_S3_BUCKET=localbites-images
+
+# Razorpay Configuration
+RAZORPAY_KEY_ID=your-razorpay-key
+RAZORPAY_KEY_SECRET=your-razorpay-secret
+
+# Google Maps Configuration
+GOOGLE_MAPS_API_KEY=your-google-maps-key
+
+# Redis Configuration
+REDIS_URL=redis://localhost:6379
+
+# Email Configuration (SMTP)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASS=your-app-password
+
+# Logging
+LOG_LEVEL=debug
+
+# CORS Configuration
+CORS_ORIGIN=http://localhost:5173,http://localhost:3000

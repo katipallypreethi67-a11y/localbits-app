@@ -1,0 +1,15 @@
+# LocalBites Setup Guide
+
+## Prerequisites
+- Node.js >= 16
+- Flutter SDK >= 3.0
+- PostgreSQL >= 12
+- Docker (optional)
+- Git
+
+## Backend Setup
+
+### 1. Install Dependencies
+```bash
+cd backend
+npm install
